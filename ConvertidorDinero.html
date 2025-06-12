@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor de Monedas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: pink;}
+    label, select, input, button { margin: 8px 0; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Conversor de Monedas</h1>
+  <label for="cantidad">Cantidad:</label>
+  <input type="number" id="cantidad" min="0" step="any">
+
+  <label for="conversion">Tipo de conversión:</label>
+  <select id="conversion">
+    <option value="mxn-usd">Pesos mexicanos a dólares</option>
+    <option value="mxn-eur">Pesos mexicanos a euros</option>
+    <option value="usd-mxn">Dólares a pesos</option>
+    <option value="eur-mxn">Euros a pesos </option>
+  </select>
+
+  <button onclick="convertir()">Convertir</button>
+
+  <h2 id="resultado"></h2>
+
+  <script>
+    function convertir() {
+      const cantidad = parseFloat(document.getElementById('cantidad').value);
+      const conversion = document.getElementById('conversion').value;
+      let resultado = 0;
+      let mensaje = '';
+
+      if (isNaN(cantidad) || cantidad <= 0) {
+        document.getElementById('resultado').textContent = 'El valor debe ser un numero positivo y mayor a 0';
+        return;
+      }
+
+      switch (conversion) {
+        case 'mxn-usd':
+          resultado = cantidad / 17.5;
+          mensaje = `El valor de peso mexicano ${cantidad} a dólares es = ${resultado.toFixed(2)} USD`;
+          break;
+        case 'mxn-eur':
+          resultado = cantidad / 19.2;
+          mensaje = `El valor de peso mexicano ${cantidad} a Euros es =${resultado.toFixed(2)} EUR`;
+          break;
+        case 'usd-mxn':
+          resultado = cantidad * 17.5;
+          mensaje = `El valor de dolares ${cantidad} a pesos mexicanos es =${resultado.toFixed(2)} MXN`;
+          break;
+        case 'eur-mxn':
+          resultado = cantidad * 19.2;
+          mensaje = `El valor de euros ${cantidad}a pesos mexicanos es = ${resultado.toFixed(2)} MXN`;
+          break;
+      }
+      document.getElementById('resultado').textContent = mensaje;
+    }
+  </script>
+</body>
+</html>
+
